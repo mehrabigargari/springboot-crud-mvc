@@ -30,4 +30,5 @@ public interface EmployeeService {
     Optional<Employee> findByEmail(String email);
 
     List<Employee> findByDepartmentId(int departmentId);
+
 }

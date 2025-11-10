@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional(readOnly = true)
     public List<Employee> findAll() {
-        return employeeRepository.findAll();
+        return employeeRepository.findAllByOrderByLastNameAsc();
     }
 
     @Override
@@ -87,10 +87,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findByEmail(email);
     }
 
-    // --- Find by Department ---
     @Override
     @Transactional(readOnly = true)
     public List<Employee> findByDepartmentId(int departmentId) {
         return employeeRepository.findByDepartmentId(departmentId);
     }
+
 }

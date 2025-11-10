@@ -55,6 +55,9 @@ public class Employee {
     @PastOrPresent(message = "Hire date cannot be in the future")
     private LocalDate hireDate;
 
+    public Employee() {
+    }
+
     public Employee(String firstName, String lastName, String email, String phoneNumber, String status, int jobId, int departmentId, LocalDate hireDate) {
         this.firstName = firstName;
         this.lastName = lastName;

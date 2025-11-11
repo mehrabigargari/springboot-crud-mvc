@@ -65,4 +65,11 @@ public class EmployeeController {
             throw new AppException("The employee does not exist!");
         }
     }
+
+    @GetMapping("/delete")
+    public String deleteEmployee(@RequestParam("employeeId") int id, Model model){
+        service.deleteById(id);
+        model.addAttribute("status", status);
+        return "redirect:/employee/management";
+    }
 }

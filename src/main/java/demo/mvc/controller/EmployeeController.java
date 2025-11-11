@@ -10,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +32,21 @@ public class EmployeeController {
     }
 
     @GetMapping("/management")
-    public String manage(Model model){
-        List<Employee> all = service.findAll();
-        model.addAttribute("employees", all);
+    public String manage(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        if (page < 0) page = 0;
+        if (size <= 0) size = 10;
+        Pageable pageable = PageRequest.of(page, size, Sort.by("lastName").ascending());
+        Page<Employee> employeePage = service.findAllPaged(pageable);
+        model.addAttribute("employees", employeePage.getContent());
+        model.addAttribute("currentPage", employeePage.getNumber());
+        model.addAttribute("totalPages", employeePage.getTotalPages());
+        model.addAttribute("totalItems", employeePage.getTotalElements());
+        model.addAttribute("pageSize", employeePage.getSize());
+
         return "management";
     }
 

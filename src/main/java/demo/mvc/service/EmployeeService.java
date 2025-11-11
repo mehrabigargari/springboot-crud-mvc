@@ -31,4 +31,6 @@ public interface EmployeeService {
 
     List<Employee> findByDepartmentId(int departmentId);
 
+    Page<Employee> findAllPaged(Pageable pageable);
+
 }

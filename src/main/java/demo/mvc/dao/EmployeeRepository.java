@@ -1,8 +1,9 @@
 package demo.mvc.dao;
 
 import demo.mvc.entity.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -10,4 +11,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Optional<Employee> findByEmail(String email);
     List<Employee> findByDepartmentId(int departmentId);
     List<Employee> findAllByOrderByLastNameAsc();
+    Page<Employee> findAllByOrderByLastNameAsc(Pageable pageable);
 }
